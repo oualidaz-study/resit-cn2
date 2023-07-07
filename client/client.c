@@ -6,7 +6,7 @@
 #include <string.h>
 
 #include <netinet/in.h>
-
+#include "asp.h"
 #include "player.h"
 
 #define BIND_PORT 1235
@@ -31,7 +31,12 @@ int main(int argc, char** argv) {
     // TODO: Parse command-line options.
 
     // TODO: Set up network connection.
-
+    asp_socket_info asi;
+    asi.sockfd = create_socket();
+    asi.local_addr = bind_address_to_socket(asi.sockfd, 1236);
+    asi.local_addrlen = get_address_length(asi.local_addr);
+    
+    asi.remote_addr = connect_to_server_with_port(asi.sockfd, 1235);
 
     // set up buffer/queue
     uint8_t* recvbuffer = malloc(buffer_size);

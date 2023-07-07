@@ -1,10 +1,8 @@
 /* Skeleton code for Computer Networks 2022 @ LIACS */
 #include <stdlib.h>
-
 #include "asp.h"
 #include "wave.h"
 
-static int asp_socket_fd = -1;
 
 int main(int argc, char** argv) {
     // TODO: Parse command-line options 
@@ -18,7 +16,15 @@ int main(int argc, char** argv) {
     }
 
     // TODO: Read and send audio data
-    (void) asp_socket_fd;
+    asp_socket_info asi;
+    asi.sockfd = create_socket();
+    asi.local_addr = bind_address_to_socket(asi.sockfd, 1235);
+    asi.local_addrlen = get_address_length(asi.local_addr);
+
+    do{
+        asi.remote_addr = receive_acknowledgemnt(asi.sockfd);
+    }while(1);
+
 
     // Clean up
     wave_close(&wave);
